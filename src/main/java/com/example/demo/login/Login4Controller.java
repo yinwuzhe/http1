@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+//@RestController
+//确保redis server能连接的时候再打开这个注解
 public class Login4Controller {
 
     @RequestMapping("/redisSession")
