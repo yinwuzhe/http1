@@ -1,6 +1,6 @@
-package com.example.demo;
+package com.example.demo.login;
 
-import com.example.demo.SessionManager.Session;
+import com.example.demo.login.SessionManager.Session;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class Login4Controller {
+public class Login3Controller {
 
-    @RequestMapping("/redisSession")
+    @RequestMapping("/mysession")
     public String home(HttpServletRequest request,HttpServletResponse response) throws IOException {
 
         Map<String, String> cookieMap = new HashMap<>();
@@ -25,32 +25,32 @@ public class Login4Controller {
                 cookieMap.put(cookie.getName(), cookie.getValue());
             }
         }
-        String mysession = cookieMap.get("redisSession");
+        String mysession = cookieMap.get("mysession");
 
 
         if ( mysession== null) {
-            response.sendRedirect("/login4.html");
-            return "redirect:/login4";
+            response.sendRedirect("/login3.html");
+            return "redirect:/login3";
         } else {
-            String username = sessionManager.getSession(mysession).getUsername();
+            String username = SessionManager.getSession(mysession).getUsername();
             System.out.println("username = " + username);
             return "Hello " + username;
         }
     }
 
-    RedisSessionManager sessionManager=new RedisSessionManager();
 
 
 
-    @PostMapping("/login4")
+    @PostMapping("/login3")
     public void login(@RequestParam String username, @RequestParam String password,
             HttpServletResponse response) throws IOException {
         if (username.equals("admin") && password.equals("password")) {
-            RedisSessionManager.Session session = sessionManager.createSession(username, 3600);
-            Cookie cookie = new Cookie("redisSession", session.getSessionId());
-            cookie.setMaxAge(3600); // 1 hour
+            Session session = SessionManager.createSession(username, 3600);
+            Cookie cookie = new Cookie("mysession", session.getSessionId());
+            cookie.setMaxAge(20); // 1 hour
+            cookie.setPath("/mysession");
             response.addCookie(cookie);
-            response.sendRedirect("/redisSession");
+            response.sendRedirect("/mysession");
         } else {
             response.getWriter().println("Invalid username or password");
         }

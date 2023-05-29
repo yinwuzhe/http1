@@ -1,6 +1,5 @@
-package com.example.demo;
+package com.example.demo.login;
 
-import com.example.demo.SessionManager.Session;
 import java.io.IOException;
 import java.net.URI;
 import javax.servlet.http.HttpServletResponse;
