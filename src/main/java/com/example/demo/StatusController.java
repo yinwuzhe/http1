@@ -21,7 +21,7 @@ public class StatusController {
 
     @GetMapping("/return302")
     public ResponseEntity return302(){
-        return ResponseEntity.status(HttpStatus.FOUND).header("Location", "重定向的URL").build();
+        return ResponseEntity.status(HttpStatus.FOUND).header("Location", "/return400").build();
     }
 
     @PostMapping("/return400")

@@ -48,6 +48,7 @@ public class MediaController {
     public ResponseEntity<byte[]> getData() throws IOException {
         // 获取原始数据，例如从数据库或其他来源
         byte[] imageBytes = getBytes();
+        System.out.println("image.length = " + imageBytes.length);
 
         // 使用gzip压缩数据
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -55,6 +56,7 @@ public class MediaController {
             gzipOut.write(imageBytes);
         }
         byte[] compressedData = baos.toByteArray();
+        System.out.println("compressedData.length = " + compressedData.length);
 
         // 返回使用gzip压缩的响应
         HttpHeaders headers = new HttpHeaders();
@@ -66,7 +68,7 @@ public class MediaController {
     }
 
     private byte[] getBytes() {
-        Path imagePath = Paths.get("/Users/ywz/http2/image2.jpg");
+        Path imagePath = Paths.get("/Users/ywz/http1/resourceleak.png");
         byte[] imageBytes = new byte[0];
         try {
             imageBytes = Files.readAllBytes(imagePath);

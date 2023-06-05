@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
     private String name="hello,buddy!";
+    @GetMapping(value = "/")
+    public String home() {
+        return "this is yuangui.info.";
+    }
     @RequestMapping(value = "/",method = {RequestMethod.HEAD,RequestMethod.OPTIONS})
     public void hello() {
     }
